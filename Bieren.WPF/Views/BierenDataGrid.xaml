@@ -1,0 +1,70 @@
+﻿<UserControl x:Class="Bieren.WPF.Views.BierenDataGrid"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Bieren.WPF.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions> 
+        <!--<DataGrid ItemsSource="{Binding BrouwersVM.SelectedBrouwer.Bieren}" SelectedItem="{Binding BierenVM.SelectedBier}" AutoGenerateColumns="True">
+        </DataGrid>-->
+
+        <DataGrid Grid.Row="0" ItemsSource="{Binding BrouwersVM.SelectedBrouwer.Bieren}" SelectedItem="{Binding BierenVM.SelectedBier}" AutoGenerateColumns="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Naam" Binding="{Binding Naam}"/>
+                <DataGridTextColumn Header="Alcohol%" Binding="{Binding Alcohol}"/>
+                <DataGridTextColumn Header="BierSoort" Binding="{Binding BierSoort}"/>
+                <!--<DataGridTextColumn Header="Op Markt" Binding="{Binding MarktDatum, StringFormat='MM/dd/yyyy'}"/>-->
+                <DataGridTemplateColumn Header="Op Markt">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <DatePicker SelectedDate="{Binding MarktDatum}" BorderThickness="0"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridCheckBoxColumn Header="Is lekker" Binding="{Binding IsLekker}" IsThreeState="True" />
+                <DataGridTemplateColumn Header="Link">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <ContentControl Margin="0,3">
+                                <Hyperlink Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl},Mode=FindAncestor},Path=DataContext.ShowWebSiteDialogCommand}">
+                                    <TextBlock Text="{Binding Path=WebSite}" />
+                       </Hyperlink>
+                            </ContentControl>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            
+            <DataGridTemplateColumn>
+                <DataGridTemplateColumn.CellTemplate>
+                    <DataTemplate>
+                        <Button Width="22"  ToolTip="Open"
+                  Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type UserControl},Mode=FindAncestor},Path=DataContext.ShowWebSiteDialogCommand}">
+                           
+                        </Button>
+                    </DataTemplate>
+                </DataGridTemplateColumn.CellTemplate>
+            </DataGridTemplateColumn>
+                </DataGrid.Columns>
+        </DataGrid>
+        <!--// Command="{Binding ShowWebSiteDialogCommand}"-->
+        <GroupBox Margin="10" Grid.Row="1" Header="Filteren op Marktdatum">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock  Margin="10" Width="20" Height="28" Text="Van:"/>
+                <DatePicker Height="28"  SelectedDate="{Binding  BrouwersVM.VanMarktDatum}" />
+                <TextBlock  Margin="10"  Width="20" Height="28" Text="Tot:"/>
+                <DatePicker Height="28"  SelectedDate="{Binding  BrouwersVM.TotMarktDatum}"/>
+                <Button Margin="10" Content="Filter" Width="100" Height="28" Command="{Binding  BrouwersVM.FilterOpMarktDatumCommand}"/>
+            </StackPanel>
+        </GroupBox>
+    </Grid>
+</UserControl>
