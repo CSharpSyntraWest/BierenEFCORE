@@ -26,7 +26,8 @@ namespace Bieren.DataLayer.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\DATA\\SYNTRA\\Data\\BierenDb.mdf;Integrated Security=True;Connect Timeout=30");
+                optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=BierenMetUsersDb;Integrated Security=True");               
+                    //"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\DATA\\SYNTRA\\Data\\BierenDb.mdf;Integrated Security=True;Connect Timeout=30");
             }
         }
 
@@ -54,6 +55,8 @@ namespace Bieren.DataLayer.Models
                     .WithMany(p => p.DbBiers)
                     .HasForeignKey(d => d.SoortNr)
                     .HasConstraintName("FK_Bieren_Soorten");
+
+
             });
 
             modelBuilder.Entity<DbBrouwer>(entity =>
@@ -88,6 +91,23 @@ namespace Bieren.DataLayer.Models
                     .IsUnicode(false);
             });
 
+            modelBuilder.Entity<DbUser>(entity =>
+            {
+                entity.HasKey(e => e.UserId)  //UserId van DbUser class wordt gemapt op kolom met PK 'PK_Users'
+                        .HasName("PK_Users");
+                entity.Property(e => e.UserId).ValueGeneratedOnAdd();
+                entity.ToTable("DbUser");  //DbUser class wordt gemapt op tabel met naam DbUser
+                entity.Property(e => e.Voornaam)   //Wordt gemapt op kolom varchar(50)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+                entity.Property(e => e.Familienaam)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+                entity.Property(e => e.Email)
+                    .HasMaxLength(20)
+                    .IsUnicode(false);
+               
+            });
             OnModelCreatingPartial(modelBuilder);
         }
 
