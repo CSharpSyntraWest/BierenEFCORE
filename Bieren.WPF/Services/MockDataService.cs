@@ -121,5 +121,15 @@ namespace Bieren.WPF.Services
                 _brouwers[index] = nieuwebrouwer;
             }
         }
+
+        public IList<BierSoort> WijzigBierSoort(BierSoort selectedSoort)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IList<BierSoort> VerwijderBierSoort(BierSoort selectedSoort)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

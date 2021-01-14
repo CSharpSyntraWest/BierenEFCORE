@@ -16,5 +16,7 @@ namespace Bieren.WPF.Services
         IList<Brouwer> VerwijderBrouwer(Brouwer selectedBrouwer);
         IList<Brouwer> VoegBrouwerToe(Brouwer brouwer);
         void WijzigBrouwer(Brouwer selectedBrouwer);
+        IList<BierSoort> WijzigBierSoort(BierSoort selectedSoort);
+        IList<BierSoort> VerwijderBierSoort(BierSoort selectedSoort);
     }
 }

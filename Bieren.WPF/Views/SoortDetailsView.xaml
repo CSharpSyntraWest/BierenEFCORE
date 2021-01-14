@@ -1,0 +1,46 @@
+﻿<UserControl x:Class="Bieren.WPF.Views.SoortDetailsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Bieren.WPF.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <GroupBox Margin="10">
+        <StackPanel Margin="10">
+            <Grid Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="6" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="20" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Label  Grid.Row="0" Content="Soort:"
+                       HorizontalAlignment="Right" />
+                <TextBox  Grid.Row="0" Text="{Binding SelectedSoort.SoortNaam, UpdateSourceTrigger=PropertyChanged}" Grid.Column="2" Width="200" />
+
+                <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="4" HorizontalAlignment="Center" Orientation="Horizontal" Margin="10">
+                    <Button Style="{StaticResource DetailsFormButton}" Command="{Binding AddSoortCommand}" Margin="10"
+                        Grid.Row="4" 
+                        Content="Nieuw" />
+
+                    <Button Style="{StaticResource DetailsFormButton}" Command="{Binding UpdateSoortCommand}" Margin="10"
+                        Grid.Row="4" 
+                        Content="Wijzig" />
+                    <Button Style="{StaticResource DetailsFormButton}" Command="{Binding DeleteSoortCommand}" Margin="10"
+                        Grid.Row="4" 
+                        Content="Verwijder" />
+                </StackPanel>
+
+            </Grid>
+        </StackPanel>
+    </GroupBox>
+</UserControl>

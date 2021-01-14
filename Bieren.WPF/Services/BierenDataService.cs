@@ -1,7 +1,9 @@
 ﻿using Bieren.DataLayer.Models;
 using Bieren.WPF.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 
@@ -19,7 +21,7 @@ namespace Bieren.WPF.Services
             IList<Bier> bieren = new List<Bier>();
             using (BierenDbContext bierenDb = new BierenDbContext())
             {
-                var dbBieren = bierenDb.DbBiers;
+                var dbBieren = bierenDb.DbBiers.Include(b => b.BrouwerNrNavigation).Include(b => b.SoortNrNavigation);
                 foreach (DbBier dbBier in dbBieren)
                 {
                     Bier bier = DbBierToBier(dbBier);
@@ -37,8 +39,8 @@ namespace Bieren.WPF.Services
                 BierNr = dbBier.BierNr,
                 Naam = dbBier.Naam,
                 Alcohol = dbBier.Alcohol,
-                Brouwer = null,
-                BierSoort = null
+                Brouwer = DbBrouwerToBrouwer(dbBier.BrouwerNrNavigation),
+                BierSoort = DbSoortToBierSoort(dbBier.SoortNrNavigation)
             };
             return bier;
         }
@@ -82,7 +84,8 @@ namespace Bieren.WPF.Services
             IList<Brouwer> brouwers = new List<Brouwer>();
             using (BierenDbContext db = new BierenDbContext())
             {
-                foreach (DbBrouwer dbBrouwer in db.DbBrouwers)
+                List<DbBrouwer> dbBrouwers = db.DbBrouwers.ToList();//.Include(b => b.DbBiers).ToList();
+                foreach (DbBrouwer dbBrouwer in dbBrouwers)
                     brouwers.Add(DbBrouwerToBrouwer(dbBrouwer));
             }
             return brouwers;
@@ -90,6 +93,7 @@ namespace Bieren.WPF.Services
 
         private Brouwer DbBrouwerToBrouwer(DbBrouwer dbBrouwer)
         {
+            if (dbBrouwer == null) return null;
             Brouwer brouwer = new Brouwer()
             {
                  BrouwerNr = dbBrouwer.BrouwerNr,
@@ -97,9 +101,10 @@ namespace Bieren.WPF.Services
                  Straat = dbBrouwer.Adres,
                  PostCode = dbBrouwer.PostCode,
                  Gemeente = dbBrouwer.Gemeente,
-                 Omzet = dbBrouwer.Omzet
-                 //Bieren = DbBierenToBieren(dbBrouwer.DbBiers)
+                 Omzet = dbBrouwer.Omzet,
+                
             };
+
             return brouwer;
         }
 
@@ -108,7 +113,7 @@ namespace Bieren.WPF.Services
             IList<Bier> bieren = new List<Bier>();
             using (BierenDbContext db = new BierenDbContext())
             {
-                var dbBieren = db.DbBiers.Where(b => b.BrouwerNr == brouwer.BrouwerNr);
+                var dbBieren = db.DbBiers.Where(b => b.BrouwerNr == brouwer.BrouwerNr).Include(b => b.BrouwerNrNavigation);
                 foreach(DbBier dbBier in dbBieren)
                 {
                     bieren.Add(DbBierToBier(dbBier));
@@ -129,7 +134,14 @@ namespace Bieren.WPF.Services
 
         public IList<BierSoort> VoegBierSoortToe(BierSoort biersoort)
         {
-            throw new NotImplementedException();
+            using (BierenDbContext db = new BierenDbContext())
+            {
+                DbSoort dbBierSoort = new DbSoort() { Soort = biersoort.SoortNaam };
+                db.DbSoorts.Add(dbBierSoort);
+                db.SaveChanges();
+               
+            }
+            return DbSoortenToBierSoorten();
         }
 
         public IList<Bier> VoegBierToe(Bier bier)
@@ -150,6 +162,31 @@ namespace Bieren.WPF.Services
         public void WijzigBrouwer(Brouwer selectedBrouwer)
         {
             throw new NotImplementedException();
+        }
+
+        public IList<BierSoort> WijzigBierSoort(BierSoort selectedSoort)
+        {
+            using (BierenDbContext db = new BierenDbContext())
+            {
+                DbSoort dbSoort = db.DbSoorts.Where(s => s.SoortNr == selectedSoort.SoortNr).FirstOrDefault();
+                dbSoort.Soort = selectedSoort.SoortNaam;
+                db.DbSoorts.Update(dbSoort);
+                db.SaveChanges();
+            }
+
+            return DbSoortenToBierSoorten();
+        }
+
+        public IList<BierSoort> VerwijderBierSoort(BierSoort selectedSoort)
+        {
+            using (BierenDbContext db = new BierenDbContext())
+            {
+                var dbSoort = db.DbSoorts.Where(s => s.SoortNr == selectedSoort.SoortNr).FirstOrDefault();
+                db.DbSoorts.Remove(dbSoort);
+                db.SaveChanges();
+            }
+
+            return DbSoortenToBierSoorten();
         }
     }
 }

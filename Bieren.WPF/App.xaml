@@ -5,6 +5,9 @@
              xmlns:views="clr-namespace:Bieren.WPF.Views"
              xmlns:viewmodels="clr-namespace:Bieren.WPF.ViewModels" xmlns:helpers="clr-namespace:Bieren.WPF.Helpers">
     <Application.Resources>
+        <DataTemplate DataType="{x:Type viewmodels:SoortenViewModel}">
+            <views:SoortenView/>
+        </DataTemplate>
         <DataTemplate DataType="{x:Type viewmodels:BierenViewModel}">
             <views:BierenView />
         </DataTemplate>
