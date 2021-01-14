@@ -54,7 +54,7 @@ namespace Bieren.WPF.ViewModels
         private void VerwijderBierSoort()
         {
             if (SelectedSoort == null) return;
-            Soorten = new ObservableCollection<BierSoort>( _dataService.VerwijderBierSoort(SelectedSoort));
+            Soorten = new ObservableCollection<BierSoort>(_dataService.VerwijderBierSoort(SelectedSoort));
         }
 
         private void WijzigBierSoort()
@@ -77,8 +77,9 @@ namespace Bieren.WPF.ViewModels
                 return;
             }
             //Biersoort toevoegen aan database;
-            
+
             Soorten = new ObservableCollection<BierSoort>(_dataService.VoegBierSoortToe(SelectedSoort));
+            SelectedSoort = Soorten[Soorten.Count - 1];
         }
     }
     
