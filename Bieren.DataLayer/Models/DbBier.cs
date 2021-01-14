@@ -7,6 +7,10 @@ namespace Bieren.DataLayer.Models
 {
     public partial class DbBier
     {
+        public DbBier()
+        {
+            Users = new HashSet<DbUser>();
+        }
         public int BierNr { get; set; }
         public string Naam { get; set; }
         public int? BrouwerNr { get; set; }
@@ -15,5 +19,7 @@ namespace Bieren.DataLayer.Models
 
         public virtual DbBrouwer BrouwerNrNavigation { get; set; }
         public virtual DbSoort SoortNrNavigation { get; set; }
+
+        public virtual ICollection<DbUser> Users { get; set; }
     }
 }

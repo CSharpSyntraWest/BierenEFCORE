@@ -56,7 +56,7 @@ namespace Bieren.DataLayer.Models
                     .WithMany(p => p.DbBiers)
                     .HasForeignKey(d => d.SoortNr)
                     .HasConstraintName("FK_Bieren_Soorten");
-
+                entity.HasMany(e => e.Users);
 
             });
 
@@ -107,6 +107,8 @@ namespace Bieren.DataLayer.Models
                 entity.Property(e => e.Email)
                     .HasMaxLength(20)
                     .IsUnicode(false);
+                entity.HasMany(e => e.FavorieteBieren);
+
                
             });
             OnModelCreatingPartial(modelBuilder);
