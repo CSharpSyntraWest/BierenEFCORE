@@ -20,6 +20,7 @@ namespace Bieren.DataLayer.Models
         public virtual DbSet<DbBier> DbBiers { get; set; }
         public virtual DbSet<DbBrouwer> DbBrouwers { get; set; }
         public virtual DbSet<DbSoort> DbSoorts { get; set; }
+        public virtual DbSet<DbUser> DbUsers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
