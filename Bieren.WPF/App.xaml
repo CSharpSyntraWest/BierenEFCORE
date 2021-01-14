@@ -8,6 +8,7 @@
         <DataTemplate DataType="{x:Type viewmodels:SoortenViewModel}">
             <views:SoortenView/>
         </DataTemplate>
+
         <DataTemplate DataType="{x:Type viewmodels:BierenViewModel}">
             <views:BierenView />
         </DataTemplate>
