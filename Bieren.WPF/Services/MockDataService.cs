@@ -131,5 +131,10 @@ namespace Bieren.WPF.Services
         {
             throw new NotImplementedException();
         }
+
+        public IList<User> GeefAlleUsers()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

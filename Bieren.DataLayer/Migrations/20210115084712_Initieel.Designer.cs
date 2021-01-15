@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bieren.DataLayer.Migrations
 {
     [DbContext(typeof(BierenDbContext))]
-    [Migration("20210114160542_InitDb")]
-    partial class InitDb
+    [Migration("20210115084712_Initieel")]
+    partial class Initieel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -123,7 +123,7 @@ namespace Bieren.DataLayer.Migrations
                         .HasColumnType("varchar(50)");
 
                     b.Property<DateTime>("GeboorteDatum")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("DateTime");
 
                     b.Property<string>("Voornaam")
                         .HasMaxLength(50)

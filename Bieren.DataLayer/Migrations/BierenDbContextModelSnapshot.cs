@@ -121,7 +121,7 @@ namespace Bieren.DataLayer.Migrations
                         .HasColumnType("varchar(50)");
 
                     b.Property<DateTime>("GeboorteDatum")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("DateTime");
 
                     b.Property<string>("Voornaam")
                         .HasMaxLength(50)

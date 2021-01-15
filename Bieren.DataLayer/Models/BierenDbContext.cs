@@ -27,7 +27,7 @@ namespace Bieren.DataLayer.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=BierenMetUsersDb;Integrated Security=True");               
+                optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;Initial Catalog=BierenEnUsersDb;Integrated Security=True;Pooling=False");               
                     //"Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\DATA\\SYNTRA\\Data\\BierenDb.mdf;Integrated Security=True;Connect Timeout=30");
             }
         }
@@ -94,23 +94,23 @@ namespace Bieren.DataLayer.Models
 
             modelBuilder.Entity<DbUser>(entity =>
             {
-                entity.HasKey(e => e.UserId)  //UserId van DbUser class wordt gemapt op kolom met PK 'PK_Users'
-                        .HasName("PK_Users");
+                entity.HasKey(e => e.UserId)
+                .HasName("PK_Users");
                 entity.Property(e => e.UserId).ValueGeneratedOnAdd();
-                entity.ToTable("DbUser");  //DbUser class wordt gemapt op tabel met naam DbUser
-                entity.Property(e => e.Voornaam)   //Wordt gemapt op kolom varchar(50)
+                entity.ToTable("DbUser");
+                entity.Property(e => e.Voornaam)
                     .HasMaxLength(50)
-                    .IsUnicode(false);
+                    .IsUnicode(false); //indien false: varchar(50) indien true: nvarchar(50)
                 entity.Property(e => e.Familienaam)
                     .HasMaxLength(50)
                     .IsUnicode(false);
                 entity.Property(e => e.Email)
                     .HasMaxLength(20)
                     .IsUnicode(false);
+                entity.Property(e => e.GeboorteDatum).HasColumnType(nameof(System.DateTime));
                 entity.HasMany(e => e.FavorieteBieren);
-
-               
             });
+        
             OnModelCreatingPartial(modelBuilder);
         }
 

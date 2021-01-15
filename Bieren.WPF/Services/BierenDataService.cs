@@ -188,5 +188,15 @@ namespace Bieren.WPF.Services
 
             return DbSoortenToBierSoorten();
         }
+
+        public IList<User> GeefAlleUsers()
+        {
+            throw new NotImplementedException();
+            //using (BierenDbContext db = new BierenDbContext())
+            //{ 
+
+            //}
+
+        }
     }
 }

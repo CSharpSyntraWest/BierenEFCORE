@@ -21,5 +21,6 @@ namespace Bieren.DataLayer.Models
         public virtual DbSoort SoortNrNavigation { get; set; }
 
         public virtual ICollection<DbUser> Users { get; set; }
+
     }
 }

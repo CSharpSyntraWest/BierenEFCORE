@@ -2,19 +2,17 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Bieren.DataLayer.Models
+namespace Bieren.WPF.Models
 {
-    public class DbUser
+    public class User
     {
-        public DbUser()
-        {
-            FavorieteBieren = new HashSet<DbBier>();
-        }
-        public int UserId { get; set; }
+        public int UserNr { get; set; }
         public string Voornaam { get; set; }
         public string Familienaam { get; set; }
         public DateTime GeboorteDatum { get; set; }
+
         public string Email { get; set; }
-        public virtual ICollection<DbBier> FavorieteBieren { get; set; }
+        public IList<Bier> FavorieteBieren { get; set; }
+
     }
 }

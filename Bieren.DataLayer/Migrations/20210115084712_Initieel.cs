@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Bieren.DataLayer.Migrations
 {
-    public partial class InitDb : Migration
+    public partial class Initieel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -45,7 +45,7 @@ namespace Bieren.DataLayer.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Voornaam = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: true),
                     Familienaam = table.Column<string>(type: "varchar(50)", unicode: false, maxLength: 50, nullable: true),
-                    GeboorteDatum = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    GeboorteDatum = table.Column<DateTime>(type: "DateTime", nullable: false),
                     Email = table.Column<string>(type: "varchar(20)", unicode: false, maxLength: 20, nullable: true)
                 },
                 constraints: table =>
