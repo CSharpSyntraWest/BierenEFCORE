@@ -23,7 +23,7 @@
                 <DataGridTextColumn Header="Naam" Binding="{Binding Naam}"/>
                 <DataGridTextColumn Header="Alcohol%" Binding="{Binding Alcohol}"/>
                 <DataGridTextColumn Header="BierSoort" Binding="{Binding BierSoort}"/>
-                <!--<DataGridTextColumn Header="Op Markt" Binding="{Binding MarktDatum, StringFormat='MM/dd/yyyy'}"/>-->
+                <!--<DataGridTextColumn Header="Op Markt" Binding="{Binding MarktDatum, StringFormat='dd/MM/yyyy'}"/>-->
                 <DataGridTemplateColumn Header="Op Markt">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>

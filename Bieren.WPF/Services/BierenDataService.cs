@@ -191,12 +191,24 @@ namespace Bieren.WPF.Services
 
         public IList<User> GeefAlleUsers()
         {
-            throw new NotImplementedException();
-            //using (BierenDbContext db = new BierenDbContext())
-            //{ 
-
-            //}
-
+            IList<User> users = new List<User>();
+            using (BierenDbContext db = new BierenDbContext())
+            {
+                List<DbUser> dbUsers = db.DbUsers.ToList();
+                foreach(DbUser dbuser in dbUsers)
+                {
+                    User user = new User() //Er bestaat een populaire NuGet Package:  AutoMapper (niet altijd gemakkelijk om te configureren)
+                    {
+                         UserNr= dbuser.UserId,
+                         Voornaam = dbuser.Voornaam,
+                         Familienaam =dbuser.Familienaam,
+                         Email = dbuser.Email,
+                         GeboorteDatum = dbuser.GeboorteDatum 
+                    };
+                    users.Add(user);
+                }
+            }
+            return users;
         }
     }
 }

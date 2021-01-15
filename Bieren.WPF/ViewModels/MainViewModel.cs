@@ -58,9 +58,12 @@ namespace Bieren.WPF.ViewModels
             {
                 new CommandViewModel("Bieren", new RelayCommand(ToonBieren)),
                 new CommandViewModel("Brouwers", new RelayCommand(ToonBrouwers)),
-                new CommandViewModel("Soorten", new RelayCommand(ToonSoorten))
+                new CommandViewModel("Soorten", new RelayCommand(ToonSoorten)),
+                new CommandViewModel("Users",new RelayCommand(ToonUsers))
             };
         }
+
+
 
         #endregion // Commands
 
@@ -106,7 +109,12 @@ namespace Bieren.WPF.ViewModels
         #endregion // Workspaces
 
         #region Private Helpers
-
+        private void ToonUsers()
+        {
+            var workspace = new UsersViewModel(_dataService);
+            this.Workspaces.Add(workspace);
+            this.SetActiveWorkspace(workspace);
+        }
         void ToonBieren()
         {
             var workspace = new BierenViewModel(_dataService, _dialogService);

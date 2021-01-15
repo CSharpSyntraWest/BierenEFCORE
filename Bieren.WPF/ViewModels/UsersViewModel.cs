@@ -15,6 +15,7 @@ namespace Bieren.WPF.ViewModels
 
         public UsersViewModel(IDataService dataService)
         {
+            base.DisplayName = "Users";
             _dataService = dataService;
             _users = new ObservableCollection<User>(_dataService.GeefAlleUsers());
         }
